@@ -1,19 +1,13 @@
 package com.example.login.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.login.dto.MemberDTO;
 import com.example.login.repository.MemberRepository;
-
 import jakarta.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -58,6 +52,12 @@ public class MemberController {
             
         }
 
+        if (memberRepository.findByUserId(memberDTO.getUserid()) !=null) {
+            redirectAttributes.addFlashAttribute("error","이미존재하는id");
+            return "redirect:/member/signup";
+        }
+
+
         memberRepository.save(memberDTO);
 
         redirectAttributes.addFlashAttribute("msg", "회원가입완료");
@@ -96,7 +96,7 @@ public class MemberController {
     }
     
 
-     @GetMapping("/members")
+    @GetMapping("/members")
     public String members(Model model){
         model.addAttribute("members", memberRepository.findAll());
 
