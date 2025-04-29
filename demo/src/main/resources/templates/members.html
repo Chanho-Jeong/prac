@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>회원 목록</title>
+</head>
+<body>
+
+  <h1>회원 목록</h1>
+
+  <!-- 회원가입 성공 메세지 -->
+  <p th:if="${msg}" th:text="${msg}">[메세지]</p>
+
+  <ul>
+    <li th:each="member : ${members}" th:text="${member.userid}">userid</li>
+  </ul>
+
+</body>
+</html>
